@@ -1,0 +1,127 @@
+/* GLOBAL */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #0a0a0c;
+  /* rainmap.bg */
+  color: #EAF6F6;
+  /* text-contrast */
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN WRAPPER */
+.dashboard {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* HEADINGS */
+h1 {
+  text-align: center;
+  color: #00FFC8;
+  /* accent-cyan */
+  margin-bottom: 2rem;
+}
+
+/* INPUT ROW */
+.inputs {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.inputs input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  /* glass */
+  color: #EAF6F6;
+  border: 1px solid rgba(180, 255, 255, 0.45);
+  /* glass-border */
+  border-radius: 10px;
+  backdrop-filter: blur(14px);
+}
+
+/* ROUTES BUTTON LIST */
+.routes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.routes button {
+  background: rgba(255, 255, 255, 0.06);
+  /* subtle glass */
+  color: #EAF6F6;
+  border: 1px solid rgba(180, 255, 255, 0.35);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+}
+
+.routes button:hover {
+  background: rgba(0, 255, 120, 0.12);
+  /* accent highlight */
+  border-color: rgba(0, 255, 120, 0.35);
+}
+
+.routes button.active {
+  background: rgba(0, 255, 120, 0.18);
+  border-color: rgba(0, 255, 120, 0.45);
+  box-shadow: 0 0 10px rgba(0, 255, 120, 0.20);
+}
+
+/* CONTENT PANEL */
+.content {
+  background: rgba(255, 255, 255, 0.05);
+  /* liquid glass */
+  padding: 1.5rem;
+  border-radius: 16px;
+  /* rounded-2xl */
+  border: 1px solid rgba(180, 255, 255, 0.22);
+  /* glass-border */
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  /* deep glass shadow */
+}
+
+/* JSON VIEW BOX */
+.json-view {
+  background: rgba(255, 255, 255, 0.06);
+  /* glass */
+  border-radius: 12px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  border: 1px solid rgba(180, 255, 255, 0.18);
+}
+
+/* IMAGE GALLERY GRID */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* IMAGE CARD */
+.image-item {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid rgba(180, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+/* MAP IMAGES */
+.map-img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 255, 255, 0.22);
+}
