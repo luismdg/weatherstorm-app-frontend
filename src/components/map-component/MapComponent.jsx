@@ -3,8 +3,6 @@ import { Loader } from "lucide-react"
 import Dropdown from "./DropDown";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import 'leaflet/dist/leaflet.css';
-import "../../fixLeafletIcons";
 
 
 const API_BASE_URL = "https://weatherstorm-app-backend-weather-app.up.railway.app"
