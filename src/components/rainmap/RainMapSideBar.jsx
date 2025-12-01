@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 
-// const API_BASE_URL = "http://localhost:8000"
 const API_BASE_URL = "https://weatherstorm-app-backend-weather-app.up.railway.app"
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://weatherstorm-app-backend-weather-app.up.railway.app" || "http://localhost:8000";
 
 export default function RainmapSidebar({
   view,

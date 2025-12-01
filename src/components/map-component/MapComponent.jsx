@@ -4,10 +4,9 @@ import Dropdown from "./DropDown";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
-// http://localhost:8000/rainmap/realtime?grid_size=5&density=5
-
-// const API_BASE_URL = "http://localhost:8000";
 const API_BASE_URL = "https://weatherstorm-app-backend-weather-app.up.railway.app"
+// https://weatherstorm-app-backend-weather-app.up.railway.app/rainmap/realtime?grid_size=5&density=5
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://weatherstorm-app-backend-weather-app.up.railway.app" || "http://localhost:8000";
 
 export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
   const mapRef = useRef(null);
@@ -194,7 +193,7 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
   }, [cityData]);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[100vh]">
       {loading && (
         <div
           role="status"
@@ -217,7 +216,7 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
         </div>
       )}
 
-      <div id="mexico-map" className="w-full h-full" />
+      <div id="mexico-map" className="w-full h-[100vh]" />
 
       {/* Dropdown kept untouched, only styling happens inside the component */}
       <Dropdown />

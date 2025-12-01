@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react"
 import { MapPin, Wind, AlertTriangle, Loader, ChevronLeft, ChevronRight } from "lucide-react"
 
-// const API_BASE_URL = "http://localhost:8000" 20251027\
-// https://weatherstorm-app-backend-weather-app.up.railway.app/api/date/20251027/storms/0
 const API_BASE_URL = "https://weatherstorm-app-backend-weather-app.up.railway.app"
+// https://weatherstorm-app-backend-weather-app.up.railway.app/api/date/20251027/storms/0
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://weatherstorm-app-backend-weather-app.up.railway.app" || "http://localhost:8000";
 
-// ============================================
-// NUEVO: Popup para mostrar JSON
-// ============================================
+// Popup para mostrar JSON
 function InfoPopup({ isOpen, onClose, title, content, isLoading, error }) {
   if (!isOpen) return null
 
@@ -47,9 +45,7 @@ function InfoPopup({ isOpen, onClose, title, content, isLoading, error }) {
   )
 }
 
-// ============================================
-// Componente de Carrusel de Imágenes
-// ============================================
+// Carrusel de Imágenes
 function ImageCarousel({ images, title }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [imageLoading, setImageLoading] = useState(true)
@@ -175,9 +171,7 @@ function ImageCarousel({ images, title }) {
   )
 }
 
-// ============================================
 // Carrusel General (PARA HISTÓRICO)
-// ============================================
 function GeneralMapCarousel({ latestDate }) {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
@@ -236,9 +230,7 @@ function GeneralMapCarousel({ latestDate }) {
   return <ImageCarousel images={images} title="Mapa General" />
 }
 
-// ============================================
 // Carrusel de Tormenta (HÍBRIDO: Histórico Y Última Lectura)
-// ============================================
 function StormMapCarousel({ stormId, latestDate }) {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(true)
@@ -308,9 +300,7 @@ function StormMapCarousel({ stormId, latestDate }) {
   return <ImageCarousel images={images} title={`Tormenta ${stormId}`} />
 }
 
-// ============================================
 // Última Imagen General Disponible
-// ============================================
 function LatestAvailableGeneral() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -391,9 +381,7 @@ function LatestAvailableGeneral() {
   )
 }
 
-// ============================================
 // DashboardContent Principal
-// ============================================
 export default function DashboardContent({ mainStormView, setMainStormView, activeStorms = [], loading, error, latestDate }) {
   const [showInfo, setShowInfo] = useState(false)
   const [popupTitle, setPopupTitle] = useState("Datos JSON")
