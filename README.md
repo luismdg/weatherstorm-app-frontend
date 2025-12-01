@@ -33,7 +33,7 @@ cd frontend
 
 ### Install dependencies:
 ```bash
-npm install maplibre-gl leaflet react-leaflet three lucide-react
+npm install maplibre-gl leaflet react-leaflet leaflet.heat three lucide-react
 
 ```
 
