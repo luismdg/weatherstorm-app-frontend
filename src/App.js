@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import HomePage from "./components/HomePage"
 import Rainmap from "./components/rainmap/RainMapMain.jsx"
 import Storms from "./components/dashboard/StormsMain.jsx"
+import 'leaflet/dist/leaflet.css';
+import "./fixLeafletIcons.js";
 
 const API_BASE_URL = "https://weatherstorm-app-backend-weather-app.up.railway.app"
 // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://weatherstorm-app-backend-weather-app.up.railway.app" || "http://localhost:8000";
