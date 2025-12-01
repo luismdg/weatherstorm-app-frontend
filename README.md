@@ -33,7 +33,8 @@ cd frontend
 
 ### Install dependencies:
 ```bash
-npm install maplibre-gl leaflet react-leaflet three
+npm install maplibre-gl leaflet react-leaflet three lucide-react
+
 ```
 
 ### Start the development server:
