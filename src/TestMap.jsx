@@ -1,18 +1,26 @@
-import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { useEffect, useRef } from "react";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function TestMap() {
+    const mapContainer = useRef(null);
+    const mapRef = useRef(null);
+
+    useEffect(() => {
+        if (mapRef.current) return;
+
+        mapRef.current = new maplibregl.Map({
+            container: mapContainer.current,
+            style: "https://demotiles.maplibre.org/style.json",
+            center: [-99.1332, 19.4326],
+            zoom: 9
+        });
+    }, []);
+
     return (
-        <div style={{ height: "100vh", width: "100%" }}>
-            <MapContainer
-                center={[51.505, -0.09]}
-                zoom={13}
-                style={{ height: "100%", width: "100%" }}
-            >
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </MapContainer>
-        </div>
+        <div
+            ref={mapContainer}
+            style={{ height: "500px", width: "100%" }}
+        />
     );
 }
