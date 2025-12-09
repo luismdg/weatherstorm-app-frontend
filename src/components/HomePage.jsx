@@ -281,7 +281,7 @@ export default function HomePage({ onNavigate }) {
                     {/* ✅ TODAS LAS CLASES SON VARIABLES TAILWIND */}
                     <div className="bg-rainmap-surface backdrop-blur-xl border border-rainmap-glass-border rounded-2xl p-8 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.25)] relative">
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-rainmap-contrast mb-6 text-shadow-glow">
-                            On-Rain
+                            Pluvi-X
                         </h1>
                         <p className="mt-4 text-lg md:text-xl text-rainmap-muted max-w-2xl mx-auto leading-relaxed">
                             Plataforma de monitoreo meteorológico en tiempo real.
