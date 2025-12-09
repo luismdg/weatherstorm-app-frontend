@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">pluvi-x</string>
+    <string name="title_activity_main">pluvi-x</string>
+    <string name="package_name">com.pluvix.app</string>
+    <string name="custom_url_scheme">com.pluvix.app</string>
+</resources>

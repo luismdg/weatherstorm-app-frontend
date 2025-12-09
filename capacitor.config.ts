@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.onrain',
-  appName: 'On-Rain',
+  appId: 'com.pluvix.app',
+  appName: 'pluvi-x',
   webDir: 'build'
 };
 

@@ -19,8 +19,6 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
   const [loading, setLoading] = useState(true);
   const [precipData, setPrecipData] = useState(null);
   const [cityData, setCityData] = useState(null);
-  const [filteredPoints, setFilteredPoints] = useState(0);
-  const [maxPrecipitation, setMaxPrecipitation] = useState(0);
 
   // Use refs to store map instances
   const mapRef = useRef(null);
@@ -57,8 +55,6 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
         console.log(`- Points with precipitation >= 0.5: ${meaningfulPoints}`);
         console.log(`- First 5 precipitation values:`, precipValues.slice(0, 5));
 
-        setMaxPrecipitation(maxPrecip);
-        setFilteredPoints(meaningfulPoints);
         setPrecipData(data);
       } catch (err) {
         console.error("❌ Error loading data:", err);
@@ -215,22 +211,20 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
 
     try {
       // 3. CREAR HEATMAP CON LOS COLORES EXACTOS QUE ESPECIFICASTE
-      // AUMENTAR OPACIDAD: aumentar valores alpha (0.6, 0.7, 0.8, 0.9, 1.0) a (0.8, 0.9, 1.0, 1.0, 1.0)
       const heat = L.heatLayer(heatPoints, {
-        radius: 40, // Aumentado ligeramente el radio
-        blur: 15,   // Reducido blur para puntos más definidos
+        radius: 40,
+        blur: 15,
         maxZoom: 10,
-        minOpacity: 0.3, // Aumentado opacidad mínima
+        minOpacity: 0.3,
         max: 1.0,
         gradient: {
-          // Mapeo EXACTO según tus especificaciones CON OPACIDAD AUMENTADA
-          0: 'rgba(0, 200, 0, 0)',          // 0 mm - Transparente
-          0.166: 'rgba(120, 0, 150, 0.8)',  // 0.5 mm - Poca Lluvia (aumentado 0.6 -> 0.8)
-          0.333: 'rgba(180, 0, 120, 0.9)',  // 1.0 mm - Lluvia Moderada (aumentado 0.7 -> 0.9)
-          0.5: 'rgba(230, 80, 0, 1)',       // 1.5 mm - Lluvia Intensa (aumentado 0.8 -> 1.0)
-          0.666: 'rgba(255, 100, 0, 1)',    // 2.0 mm - Lluvia de Alta Intensidad (aumentado 0.9 -> 1.0)
-          0.833: 'rgba(255, 0, 0, 1)',      // 2.5 mm - Lluvia Extrema (ya era 1.0)
-          1.0: 'rgba(255, 0, 0, 1)'         // 3.0+ mm - Lluvia Extrema
+          0: 'rgba(0, 200, 0, 0)',
+          0.166: 'rgba(120, 0, 150, 0.8)',
+          0.333: 'rgba(180, 0, 120, 0.9)',
+          0.5: 'rgba(230, 80, 0, 1)',
+          0.666: 'rgba(255, 100, 0, 1)',
+          0.833: 'rgba(255, 0, 0, 1)',
+          1.0: 'rgba(255, 0, 0, 1)'
         }
       }).addTo(map);
 
@@ -244,12 +238,12 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
 
   // Function to get color based on precipitation (for city marker)
   const getColorForPrecipitation = (precip) => {
-    if (precip < 0.5) return "#00c800";      // Verde - Sin lluvia
-    if (precip <= 1) return "#780096";       // Púrpura - Poca Lluvia
-    if (precip <= 1.5) return "#b40078";     // Rosa - Lluvia Moderada
-    if (precip <= 2) return "#e65000";       // Naranja - Lluvia Intensa
-    if (precip <= 2.5) return "#ff6400";     // Naranja oscuro - Lluvia de Alta Intensidad
-    return "#ff0000";                         // Rojo - Lluvia Extrema
+    if (precip < 0.5) return "#00c800";
+    if (precip <= 1) return "#780096";
+    if (precip <= 1.5) return "#b40078";
+    if (precip <= 2) return "#e65000";
+    if (precip <= 2.5) return "#ff6400";
+    return "#ff0000";
   };
 
   // --- Add/Update City Marker ---
@@ -272,7 +266,7 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
           color: "#ffffff",
           weight: 3,
           opacity: 1,
-          fillOpacity: 0.9 // Aumentado de 0.8 a 0.9
+          fillOpacity: 0.9
         }
       ).addTo(map);
 
