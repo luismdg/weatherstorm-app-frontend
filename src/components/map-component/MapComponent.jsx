@@ -161,46 +161,18 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
 
     // 1. FILTRAR: Solo puntos con precipitación >= 0.5
     const filteredData = precipData.data.filter(point => point.precipitation >= 0.5);
-    console.log(`✅ Points with precipitation >= 0.5: ${filteredData.length} out of ${precipData.data.length}`);
 
     if (filteredData.length === 0) {
-      // No hay precipitación significativa, remover heatmap si existe
       if (heatLayerRef.current) {
         map.removeLayer(heatLayerRef.current);
         heatLayerRef.current = null;
       }
-      console.log("ℹ️ No precipitation >= 0.5mm, heatmap removed");
       return;
     }
 
-    // Log algunos valores para debug
-    console.log("📊 Sample filtered precipitation values:",
-      filteredData.slice(0, 5).map(p => ({
-        lat: p.lat.toFixed(2),
-        lon: p.lon.toFixed(2),
-        precip: p.precipitation.toFixed(4)
-      }))
-    );
-
-    // 2. CREAR PUNTOS PARA HEATMAP: Mapear precipitación 0-3 a intensidad 0-1
+    // 2. CREAR PUNTOS PARA HEATMAP
     const heatPoints = filteredData.map(point => {
-      // Mapear precipitación 0-3 mm a intensidad 0-1
-      // precipitation = 0.5 -> intensity = 0.5/3 = 0.166
-      // precipitation = 1.0 -> intensity = 1.0/3 = 0.333
-      // precipitation = 1.5 -> intensity = 1.5/3 = 0.5
-      // precipitation = 2.0 -> intensity = 2.0/3 = 0.666
-      // precipitation = 2.5 -> intensity = 2.5/3 = 0.833
-      // precipitation = 3.0 -> intensity = 3.0/3 = 1.0
-
       const intensity = Math.min(point.precipitation / 3, 1.0);
-
-      // Debug para puntos con precipitación significativa
-      if (point.precipitation >= 0.5) {
-        console.log(`📍 Point [${point.lat.toFixed(2)}, ${point.lon.toFixed(2)}]: 
-          precipitation=${point.precipitation.toFixed(4)}mm, 
-          intensity=${intensity.toFixed(3)}`);
-      }
-
       return [point.lat, point.lon, intensity];
     });
 
@@ -210,10 +182,27 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
     }
 
     try {
-      // 3. CREAR HEATMAP CON LOS COLORES EXACTOS QUE ESPECIFICASTE
+      // Función para calcular radio dinámico basado en zoom
+      const calculateDynamicRadius = () => {
+        const currentZoom = map.getZoom();
+        // Ajustar radio según zoom - más pequeño en zoom alto, más grande en zoom bajo
+        const baseRadius = 8; // Radio base
+        const zoomFactor = Math.pow(1.5, 10 - currentZoom); // Ajuste exponencial
+        return baseRadius * zoomFactor;
+      };
+
+      // Función para calcular blur dinámico
+      const calculateDynamicBlur = () => {
+        const currentZoom = map.getZoom();
+        const baseBlur = 10;
+        const zoomFactor = Math.pow(1.4, 10 - currentZoom);
+        return baseBlur * zoomFactor;
+      };
+
+      // Crear heatmap inicial
       const heat = L.heatLayer(heatPoints, {
-        radius: 40,
-        blur: 15,
+        radius: calculateDynamicRadius(),
+        blur: calculateDynamicBlur(),
         maxZoom: 10,
         minOpacity: 0.3,
         max: 1.0,
@@ -228,8 +217,22 @@ export default function MapComponent({ selectedCity = "Ciudad de Mexico" }) {
         }
       }).addTo(map);
 
+      // Actualizar radio y blur cuando cambia el zoom
+      const updateHeatmapOnZoom = () => {
+        if (heatLayerRef.current && heatLayerRef.current._heat) {
+          const options = heatLayerRef.current.options;
+          options.radius = calculateDynamicRadius();
+          options.blur = calculateDynamicBlur();
+          // Forzar re-render del heatmap
+          heatLayerRef.current.setOptions(options);
+        }
+      };
+
+      // Escuchar cambios de zoom
+      map.on('zoomend', updateHeatmapOnZoom);
+
       heatLayerRef.current = heat;
-      console.log("✅ Heatmap updated successfully with increased opacity");
+      console.log("✅ Heatmap updated with dynamic radius");
 
     } catch (error) {
       console.error("❌ Error creating heat layer:", error);

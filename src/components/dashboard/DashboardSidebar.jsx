@@ -138,8 +138,10 @@ function Calendar({ activeDate, onDateChange }) {
 }
 
 export default function DashboardSidebar({
+  view,
   mainStormView,
   activeStorms,
+  setView,
   activeDate,
   onDateChange,
   onNavigateHome,
@@ -156,10 +158,10 @@ export default function DashboardSidebar({
 
       {/* TOP SWITCH MEJORADO - COLORES CAMBIADOS (Verde y Rojo) */}
       <div className="sticky top-0 p-3 border-b border-rainmap-glass-border flex gap-2 backdrop-blur-2xl bg-rainmap-surface z-10 rounded-b-2xl">
-        {/* Home Button - VERDE */}
+        {/* Home Button */}
         <button
           onClick={onNavigateHome}
-          className="flex-1 p-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-100 text-sm tracking-wide transition-all duration-300 hover:bg-emerald-500/20 hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] backdrop-blur-xl flex items-center justify-center gap-2"
+          className="flex-1 p-2 rounded-xl border border-rainmap-accent2/30 bg-rainmap-accent2/15 text-rainmap-contrast text-sm tracking-wide transition-all duration-300 hover:bg-rainmap-accent2/25 hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] backdrop-blur-xl flex items-center justify-center gap-2"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -167,11 +169,16 @@ export default function DashboardSidebar({
           Inicio
         </button>
 
-        {/* Active Storms Button - ROJO */}
+        {/* Active Storms Button */}
         <button
-          className="flex-1 p-2 rounded-xl border border-red-500 bg-red-500/20 text-white text-sm tracking-wide shadow-[0_0_10px_rgba(239,68,68,0.35)] backdrop-blur-xl flex items-center justify-center gap-2 cursor-default"
+          onClick={() => setView("storms")}
+          className={`flex-1 p-2 rounded-xl border text-sm tracking-wide transition-all duration-300
+          ${view === "storms"
+              ? "bg-rainmap-accent2/20 border-rainmap-accent2 text-rainmap-contrast shadow-[0_0_10px_rgba(0,240,255,0.35)] backdrop-blur-xl"
+              : "bg-rainmap-glass text-rainmap-muted border-rainmap-glass-border"}
+          `}
         >
-          <span className="inline-block w-3 h-3 rounded-full bg-red-500 animate-pulse mr-2"></span>
+          <span className="inline-block w-3 h-3 rounded-full border border-rainmap-accent2 mr-2"></span>
           Tormentas
         </button>
 
